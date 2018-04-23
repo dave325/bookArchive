@@ -5,7 +5,24 @@ window.onload = function () {
         // Show all of the elements properties in the console
         console.log(elem);
         // Create an alert on the page telling user what button was clicked
-        alert(elem.srcElement.textContent + " Button was clicked");
+        //alert(elem.srcElement.textContent + " Button was clicked");
+
+        fetch('/show', {
+            headers: {
+                'content-type': 'application/json'
+            },
+            method: "POST"
+        }).then(function (response) {
+            setTimeout(() => {
+                response.json().then(function(response){
+                    console.log(response);
+                },function(error){
+                    console.log(error);
+                });
+            }, 500);
+        },function(error){
+            console.log(error);
+        });
     }
     // Retrieve every element with an a tag
     var a = document.getElementsByTagName('a');
