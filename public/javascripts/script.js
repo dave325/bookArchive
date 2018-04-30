@@ -1,5 +1,5 @@
 window.onload = function () {
-    
+    /*
     // Function that will send an alert message to the user 
     function alertMessage(elem) {
         elem.preventDefault();
@@ -7,6 +7,20 @@ window.onload = function () {
         console.log(elem);
         // Create an alert on the page telling user what button was clicked
         //alert(elem.srcElement.textContent + " Button was clicked");
+
+        fetch('/show', {
+            method: "POST"
+        }).then(function (response) {
+            setTimeout(() => {
+                response.json().then(function(response){
+                    console.log(response);
+                },function(error){
+                    console.log(error);
+                });
+            }, 500);
+        },function(error){
+            console.log(error);
+        });
     }
     // Retrieve every element with an a tag
     var a = document.getElementsByTagName('a');
@@ -15,7 +29,7 @@ window.onload = function () {
         // Add a listener that will do the function alertMessage everytime a user clicks on the element
         a[i].addEventListener('click', alertMessage, false);
     }
-    
+    */
     // Retrieve every element with the class bookTitle
     var bookTitle = document.getElementsByClassName('bookTitle');
     // Function that changes color everytime the user changes the book title
@@ -79,19 +93,45 @@ window.onload = function () {
         bookContainer.appendChild(bookTitle);
         bookContainer.appendChild(bookAuthor)
         container.appendChild(bookContainer);
-
+        fetch('/createBook', {
+            method: "POST",
+            body: JSON.stringify(newBook),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(function (response) {
+            console.log("Complete");
+        }, function (error) {
+            console.log(error);
+        });
     }
     // Adds an event listener to the addBook element
     addBook.addEventListener("click", addNewBook);
 
-    function retrieveBook(){
-        fetch('/retrieveBook',{
-            method:"POST"
-        }).then(function(response){
+    function retrieveBook() {
+        fetch('/retrieveBook', {
+            method: "POST"
+        }).then(function (response) {
             console.log(response);
-        },function(error){
+        }, function (error) {
             console.log(error);
         })
     }
-    document.getElementById('retrieveBook').addEventListener('click',retrieveBook);
+    document.getElementById('retrieveBook').addEventListener('click', retrieveBook);
+
+    function updateBook(id) {
+        fetch('/updateBook', {
+            method: "POST",
+            body: JSON.stringify(id),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(function (response) {
+            console.log("Complete");
+        }, function (error) {
+            console.log(error);
+        });
+    }
 }
