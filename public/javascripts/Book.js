@@ -32,7 +32,16 @@ class Book {
         this.title = newTitle;
         alert('You have changed the title to ' + this.title);
     }
+
     toString(){
         return "The book is called " + this.title + ". The author is " + this.author + ".";
+    }
+
+    toJson(){
+        return {
+            title : this.title,
+            author : this.author,
+            imgUrl : this.imgUrl
+        }
     }
 }
