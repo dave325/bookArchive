@@ -111,27 +111,15 @@ window.onload = function () {
 
     function retrieveBook() {
         fetch('/retrieveBook', {
-            method: "POST"
-        }).then(function (response) {
-            console.log(response);
-        }, function (error) {
-            console.log(error);
-        })
-    }
-    document.getElementById('retrieveBook').addEventListener('click', retrieveBook);
-
-    function updateBook(id) {
-        fetch('/updateBook', {
             method: "POST",
-            body: JSON.stringify(id),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
-        }).then(function (response) {
-            console.log("Complete");
-        }, function (error) {
-            console.log(error);
-        });
+        }).then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => console.log('Success:', response))
     }
+    document.getElementById('retrieveBook').addEventListener('click', retrieveBook);
+
 }

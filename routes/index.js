@@ -11,8 +11,8 @@ router.get('/book', function (req, res, next) {
 });
 router.post('/show', mongo.retrieveBooks);
 router.post('/createBook',mongo.createBook);
-router.post('/retrieveBook',mongo.createBook);
-router.post('/updateaddBook',mongo.updateBook);
+router.post('/retrieveBook',mongo.retrieveBooks);
+router.post('/updateBook',mongo.updateBook);
 router.post('/addBook',mongo.createBook);
 router.get('/login', function (req, res, next) {
   res.render('login', { title: 'Express' });
