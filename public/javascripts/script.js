@@ -122,4 +122,19 @@ window.onload = function () {
     }
     document.getElementById('retrieveBook').addEventListener('click', retrieveBook);
 
+    function updateBook(id) {
+        fetch('/updateBook', {
+            method: "POST",
+            body: JSON.stringify({_id:"5ae766b3520dc10899c0b408",title:"bal"}),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(function (response) {
+            console.log("Complete");
+        }, function (error) {
+            console.log(error);
+        });
+    }
+    document.getElementById('updateBook').addEventListener('click', updateBook);
 }
