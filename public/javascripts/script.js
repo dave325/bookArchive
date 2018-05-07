@@ -1,7 +1,6 @@
 window.onload = function () {
-    let availableBooks;
+    let availableBooks = [];
     let bookCount = false;
-    retrieveBook(true);
     document.getElementById('formInfo').style.display = "none";
     // Retrieve every element with the class bookTitle
     var bookTitle = document.getElementsByClassName('bookTitle');
@@ -88,34 +87,43 @@ window.onload = function () {
     function retrieveBook(refresh) {
         // Checks if the availableBooks is empty, if it is, go into the database and store all of the information 
         // into the variable availableBooks
-        if (availableBooks == null || refresh) {
-            // Call retrieve books
-            fetch('/retrieveBook', {
-                method: "POST",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }).then(res => res.json())
-                // If an error occurs, then send it to the console
-                .catch(error => console.error('Error:', error))
-                // otherwise, do something with the data
-                .then(function (response) {
-                    // Check if there is a response
-                    if (response) {
-                        // Make the availableBooks variable equal to the data retrieved from the database
-                        availableBooks = response;
-                        // Loop through thte availableBooks array and add everything to the webPage
-                        for (let j = 0; j < availableBooks.length; j++) {
-                            let tempbook = new Book(availableBooks[j].title, availableBooks[j].author, availableBooks[j]._id);
-                            addBookToView(tempbook);
-                        }
-                    } else {
-                        console.error('Failed');
+        if (refresh) {
+            if (availableBooks.length === 0) {
+                // Call retrieve books
+                fetch('/retrieveBook', {
+                    method: "POST",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
                     }
-                });
-        } else {
-            console.warn('Already have info');
+                }).then(res => res.json())
+                    // If an error occurs, then send it to the console
+                    .catch(error => console.error('Error:', error))
+                    // otherwise, do something with the data
+                    .then(function (response) {
+                        // Check if there is a response
+                        if (response) {
+                            // Make the availableBooks variable equal to the data retrieved from the database
+                            availableBooks = response;
+                            // Loop through thte availableBooks array and add everything to the webPage
+                            for (let j = 0; j < availableBooks.length; j++) {
+                                let tempbook = new Book(availableBooks[j].title, availableBooks[j].author, availableBooks[j]._id);
+                                addBookToView(tempbook);
+                            }
+                            swapInfoColors();
+                            document.getElementById('formInfo').innerHTML = "Successfully listed all books";
+                            document.getElementById('formInfo').style.display = "block";
+                        } else {
+                            swapWarningColors();
+                            document.getElementById('formInfo').innerHTML = "Something went wrong";
+                            document.getElementById('formInfo').style.display = "block";
+                        }
+                    });
+            } else {
+                swapWarningColors();
+                document.getElementById('formInfo').innerHTML = "Books are already populated";
+                document.getElementById('formInfo').style.display = "block";
+            }
         }
     }
     document.getElementById('retrieveBook').addEventListener('click', retrieveBook);
@@ -238,7 +246,7 @@ window.onload = function () {
                 while (myNode.firstChild) {
                     myNode.removeChild(myNode.firstChild);
                 }
-                availableBooks.splice(curIndex,1);
+                availableBooks.splice(curIndex, 1);
                 for (let j = 0; j < availableBooks.length; j++) {
                     let tempbook = new Book(availableBooks[j].title, availableBooks[j].author, availableBooks[j]._id);
                     addBookToView(tempbook);
@@ -299,14 +307,14 @@ window.onload = function () {
         }
     }
 
-    function swapWarningColors(){
-        if(document.getElementById('formInfo').classList.contains('alert-info'))
-        document.getElementById('formInfo').classList.remove('alert-info');
+    function swapWarningColors() {
+        if (document.getElementById('formInfo').classList.contains('alert-info'))
+            document.getElementById('formInfo').classList.remove('alert-info');
         document.getElementById('formInfo').classList.add('alert-danger');
     }
-    function swapInfoColors(){
-        if(document.getElementById('formInfo').classList.contains('alert-danger'))
-        document.getElementById('formInfo').classList.remove('alert-danger');
+    function swapInfoColors() {
+        if (document.getElementById('formInfo').classList.contains('alert-danger'))
+            document.getElementById('formInfo').classList.remove('alert-danger');
         document.getElementById('formInfo').classList.add('alert-info');
     }
 }
