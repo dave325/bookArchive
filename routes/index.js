@@ -9,11 +9,10 @@ router.get('/', function (req, res, next) {
 router.get('/book', function (req, res, next) {
   res.render('book', { title: 'Express' });
 });
-router.post('/show', mongo.retrieveBooks);
 router.post('/createBook',mongo.createBook);
 router.post('/retrieveBook',mongo.retrieveBooks);
 router.post('/updateBook',mongo.updateBook);
-router.post('/addBook',mongo.createBook);
+router.post('/deleteBook',mongo.deleteBook);
 router.get('/login', function (req, res, next) {
   res.render('login', { title: 'Express' });
 });

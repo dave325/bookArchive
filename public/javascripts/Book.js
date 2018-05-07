@@ -1,16 +1,15 @@
 class Book {
-    constructor(title,author, imgUrl) {
+    constructor(title,author,id) {
         this.title = title;
         this.author = author;
-        this.imgUrl = imgUrl;
+        this._id = id;
     }
+
     promptInformation(){
-        const img = prompt("Please add a url to a picture");
         const title = prompt("Please give a title");
         const author = prompt("Please give a author");
         this.title = title;
         this.author = author;
-        this.imgUrl = img;
         alert('The title is ' + this.title + "\nThe author is " + this.author);
     }
     // Return the title attribute
@@ -23,10 +22,9 @@ class Book {
         return this.author;
     }
 
-    get getImgUrl(){
-        return this.imgUrl;
+    get getId(){
+        return this._id;
     }
-
     changeTitle(){
         const newTitle = prompt("What should the new title be?");
         this.title = newTitle;
@@ -41,7 +39,7 @@ class Book {
         return {
             title : this.title,
             author : this.author,
-            imgUrl : this.imgUrl
+            id: this._id
         }
     }
 }

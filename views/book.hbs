@@ -10,15 +10,31 @@
                     <a class="nav-link" href="#">About</a>
                     <a class="nav-link" href="#">Books</a>
                     <a class="nav-link" href="#">Contact</a>
-                </nav><!-- End of nav tag -->
-            </div><!-- End of row div -->
-        </header><!-- End of header tag -->
+                </nav>
+                <!-- End of nav tag -->
+            </div>
+            <!-- End of row div -->
+        </header>
+        <!-- End of header tag -->
         <section class="col-12">
             <button id="addBook">To add a book click here!</button>
             <button id="retrieveBook">To retrieve a book click here!</button>
             <button id="updateBook">To update a book click here!</button>
             <button id="deleteBook">To delete a book click here!</button>
             <h1>List of Books:</h1>
+            <p id="formInfo" class="alert alert-info"></p>
+            <form id="changeBook">
+                <div id="deleteBookInput">
+                    <label>Please input the ISBN string you want to delete:</label>
+                    <input name="isbn" type="text" id="deleteIsbn"/>
+                    <input type="submit" value="Delete" id="deleteSubmit" />
+                </div>
+                 <div id="updateBookInput">
+                    <label>Please input the ISBN string you want to update:</label>
+                    <input name="isbn" type="text" id="updateIsbn"/>
+                    <input type="submit" value="Update" id="updateSubmit"/>
+                </div>
+            </form>
             <article id="bookList" class="row">
 
             </article>
